@@ -1,0 +1,7 @@
+# Add some local task links to facilitate navigation.
+
+custom_display_name.add_action:
+  route_name: entity.namefield.add_form
+  title: 'Add display name field'
+  appears_on:
+    - entity.namefield.list

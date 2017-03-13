@@ -1,0 +1,5 @@
+custom_display_name.menu:
+  title: Display name fields
+  route_name: entity.namefield.list
+  parent: user.admin_index
+  description: 'Assign one or more text fields from the user entity to be used as the public display name.'

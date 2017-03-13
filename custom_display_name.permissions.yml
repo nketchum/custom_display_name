@@ -1,0 +1,4 @@
+#Define the administer permission for the namefield config entity.
+'administer namefields':
+  title: 'Administer display name fields'
+  description: Create and edit display name fields.

@@ -1,0 +1,22 @@
+custom_display_name.namefield.*:
+  type: mapping
+  label: 'Name field'
+  mapping:
+    id:
+      type: string
+      label: 'Name field id'
+    uuid:
+      type: string
+      label: 'UUID'
+    label:
+      type: label
+      label: 'Label'
+    field_id:
+      type: string
+      label: 'Field id'
+    weight:
+      type: integer
+      label: 'Weight'
+    langcode:
+      type: string
+      label: 'Default language'

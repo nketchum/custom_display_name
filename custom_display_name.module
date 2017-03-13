@@ -1,0 +1,36 @@
+<?php
+
+use Drupal\user\Entity\User;
+
+/**
+ * Implements hook_user_format_name_alter().
+ */
+function custom_display_name_user_format_name_alter(&$name, $account) {
+
+  $fields = [];
+  $namefields = \Drupal::entityTypeManager()->getStorage('namefield')->loadMultiple();
+  foreach ($namefields as $namefield) {
+    if (trim($namefield->field_id) != '') {
+      $fields[$namefield->weight] = $namefield->field_id;
+    }
+  }
+
+  $entity = User::load($account->id());
+  ksort($fields);
+  $output = '';
+
+  foreach($fields as $field) {
+    if ($entity->hasField($field)) {
+      $output .= $entity->{$field}->value;
+      $output .= ' ';
+    }
+  }
+
+  $output = trim($output);
+  $output = preg_replace('!\s+!', ' ', $output); // no repeating spaces
+
+  if ($output != '') {
+    $name = t('@name', array('@name' => $output));
+  }
+
+}
