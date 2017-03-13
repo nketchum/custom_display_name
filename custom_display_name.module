@@ -7,30 +7,38 @@ use Drupal\user\Entity\User;
  */
 function custom_display_name_user_format_name_alter(&$name, $account) {
 
+  $output = '';
   $fields = [];
   $namefields = \Drupal::entityTypeManager()->getStorage('namefield')->loadMultiple();
+
   foreach ($namefields as $namefield) {
     if (trim($namefield->field_id) != '') {
-      $fields[$namefield->weight] = $namefield->field_id;
+      $fields[] = array(
+        'weight' => $namefield->weight,
+        'field_id' => $namefield->field_id,
+      );
     }
   }
 
-  $entity = User::load($account->id());
-  ksort($fields);
-  $output = '';
+  if (count($fields) > 0) {
 
-  foreach($fields as $field) {
-    if ($entity->hasField($field)) {
-      $output .= $entity->{$field}->value;
-      $output .= ' ';
+    $entity = User::load($account->id());
+    uasort($fields, array('Drupal\Component\Utility\SortArray', 'sortByWeightElement'));
+
+    foreach($fields as $field) {
+      if ($entity->hasField($field['field_id'])) {
+        $output .= $entity->{$field['field_id']}->value;
+        $output .= ' ';
+      }
     }
-  }
 
-  $output = trim($output);
-  $output = preg_replace('!\s+!', ' ', $output); // no repeating spaces
+    $output = trim($output);
+    $output = preg_replace('!\s+!', ' ', $output); // no repeating spaces
 
-  if ($output != '') {
-    $name = t('@name', array('@name' => $output));
+    if ($output != '') {
+      $name = t('@name', array('@name' => $output));
+    }
+
   }
 
 }
