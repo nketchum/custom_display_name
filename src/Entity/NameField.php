@@ -14,12 +14,12 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *   label = @Translation("Namefield"),
  *   admin_permission = "administer users",
  *   handlers = {
- *     "access" = "Drupal\custom_display_name\NameFieldAccessController",
- *     "list_builder" = "Drupal\custom_display_name\Controller\NameFieldListBuilder",
+ *     "access" = "Drupal\custom_display_name\NamefieldAccessController",
+ *     "list_builder" = "Drupal\custom_display_name\Controller\NamefieldListBuilder",
  *     "form" = {
- *       "add" = "Drupal\custom_display_name\Form\NameFieldAddForm",
- *       "edit" = "Drupal\custom_display_name\Form\NameFieldEditForm",
- *       "delete" = "Drupal\custom_display_name\Form\NameFieldDeleteForm"
+ *       "add" = "Drupal\custom_display_name\Form\NamefieldAddForm",
+ *       "edit" = "Drupal\custom_display_name\Form\NamefieldEditForm",
+ *       "delete" = "Drupal\custom_display_name\Form\NamefieldDeleteForm"
  *     }
  *   },
  *   entity_keys = {
