@@ -1,0 +1,9 @@
+{
+  "name": "nketchum/custom_display_name",
+  "type": "drupal-module",
+  "description": "Allows users to define a display name in their profile.",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "minimum-stability": "dev",
+  "require": { }
+}
