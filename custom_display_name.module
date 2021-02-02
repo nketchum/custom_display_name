@@ -22,21 +22,22 @@ function custom_display_name_user_format_name_alter(&$name, $account) {
 
   if (count($fields) > 0) {
 
-    $entity = User::load($account->id());
-    uasort($fields, array('Drupal\Component\Utility\SortArray', 'sortByWeightElement'));
+    if ($entity = User::load($account->id())) {
+      uasort($fields, array('Drupal\Component\Utility\SortArray', 'sortByWeightElement'));
 
-    foreach($fields as $field) {
-      if ($entity->hasField($field['field_id'])) {
-        $output .= $entity->{$field['field_id']}->value;
-        $output .= ' ';
+      foreach($fields as $field) {
+        if ($entity->hasField($field['field_id'])) {
+          $output .= $entity->{$field['field_id']}->value;
+          $output .= ' ';
+        }
       }
-    }
 
-    $output = trim($output);
-    $output = preg_replace('!\s+!', ' ', $output); // no repeating spaces
+      $output = trim($output);
+      $output = preg_replace('!\s+!', ' ', $output); // no repeating spaces
 
-    if ($output != '') {
-      $name = t('@name', array('@name' => $output));
+      if ($output != '') {
+        $name = t('@name', array('@name' => $output));
+      }
     }
 
   }
