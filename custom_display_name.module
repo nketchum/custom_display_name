@@ -26,7 +26,7 @@ function custom_display_name_user_format_name_alter(&$name, $account) {
       uasort($fields, array('Drupal\Component\Utility\SortArray', 'sortByWeightElement'));
 
       foreach($fields as $field) {
-        if ($entity->hasField($field['field_id'])) {
+        if ($entity && $entity->hasField($field['field_id'])) {
           $output .= $entity->{$field['field_id']}->value;
           $output .= ' ';
         }
