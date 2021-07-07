@@ -26,6 +26,11 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *     "id" = "id",
  *     "label" = "label"
  *   },
+  *   revision_metadata_keys = {
+ *     "revision_user" = "revision_user",
+ *     "revision_created" = "revision_created",
+ *     "revision_log_message" = "revision_log",
+ *   },
  *   links = {
  *     "edit-form" = "/admin/config/people/display_name/manage/{namefield}",
  *     "delete-form" = "/admin/config/people/display_name/manage/{namefield}/delete"

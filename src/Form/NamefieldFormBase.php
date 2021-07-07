@@ -3,7 +3,7 @@
 namespace Drupal\custom_display_name\Form;
 
 use Drupal\Core\Entity\EntityForm;
-use Drupal\Core\Entity\Query\QueryFactory;
+use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -22,7 +22,7 @@ class NamefieldFormBase extends EntityForm {
   /**
    * {@inheritdoc}
    */
-  public function __construct(QueryFactory $query_factory) {
+  public function __construct(EntityStorageInterface $query_factory) {
     $this->entityQueryFactory = $query_factory;
   }
 
@@ -132,14 +132,14 @@ class NamefieldFormBase extends EntityForm {
     $namefield = $this->getEntity();
 
     $status = $namefield->save();
-    $url = $namefield->urlInfo();
+    $url = \Drupal\Core\Entity\EntityInterface::toUrl($namefield);
     $edit_link = Link::fromTextAndUrl($this->t('Edit'), $url)->toString();
 
     if ($status == SAVED_UPDATED) {
-      drupal_set_message($this->t('Display name field %label has been updated.', array('%label' => $namefield->label())));
+      \Drupal\Core\Messenger\MessengerInterface::addMessage($this->t('Display name field %label has been updated.', array('%label' => $namefield->label())));
       $this->logger('contact')->notice('Display name field %label has been updated.', ['%label' => $namefield->label(), 'link' => $edit_link]);
     } else {
-      drupal_set_message($this->t('Display name field %label has been added.', array('%label' => $namefield->label())));
+      \Drupal\Core\Messenger\MessengerInterface::addMessage($this->t('Display name field %label has been added.', array('%label' => $namefield->label())));
       $this->logger('contact')->notice('Display name field %label has been added.', ['%label' => $namefield->label(), 'link' => $edit_link]);
     }
 

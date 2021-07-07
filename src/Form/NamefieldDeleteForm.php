@@ -43,7 +43,7 @@ class NamefieldDeleteForm extends EntityConfirmFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->entity->delete();
-    drupal_set_message($this->t('Display name field %label was deleted.', array(
+    \Drupal\Core\Messenger\MessengerInterface::addMessage($this->t('Display name field %label was deleted.', array(
       '%label' => $this->entity->label(),
     )));
     $form_state->setRedirectUrl($this->getCancelUrl());
